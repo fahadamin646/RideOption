@@ -1615,7 +1615,8 @@
           let rides = x.filter(
             (y) => new Date(y.endTime).getMonth() == new Date().getMonth()
           );
-          let avgRides = rides.length / new Date().getDay();
+          let avgRides =
+            rides.length > 0 ? rides.length / new Date().getDate() : 0;
           document.getElementById(
             "totalEarning"
           ).innerHTML = `Rs ${totalEarning}`;
