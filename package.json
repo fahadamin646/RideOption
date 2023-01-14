@@ -7,11 +7,9 @@
     "example": "root"
   },
   "scripts": {
-    "ios": "react-native run-ios",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "test:e2e": "npm run test",
-    "test:e2e:build": "npm run build"
+    "open-app": "",
+    "start": "npm run open-app",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -37,6 +35,15 @@
   "bugs": {
     "url": "https://github.com/creativetimofficial/corporate-ui-dashboard/issues"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-install": "^1.1.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-open": "^3.0.1",
+    "sass": "^1.49.9"
+  },
   "homepage": "http://creative-tim.com/product/corporate-ui-dashboard"
 }
