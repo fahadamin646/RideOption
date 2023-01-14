@@ -1465,32 +1465,7 @@
         ],
         type: "line",
         data: {
-          labels: [
-            "Aug 18",
-            "Aug 19",
-            "Aug 20",
-            "Aug 21",
-            "Aug 22",
-            "Aug 23",
-            "Aug 24",
-            "Aug 25",
-            "Aug 26",
-            "Aug 27",
-            "Aug 28",
-            "Aug 29",
-            "Aug 30",
-            "Aug 31",
-            "Sept 01",
-            "Sept 02",
-            "Sept 03",
-            "Aug 22",
-            "Sept 04",
-            "Sept 05",
-            "Sept 06",
-            "Sept 07",
-            "Sept 08",
-            "Sept 09",
-          ],
+          labels: [],
           datasets: [
             {
               label: "Earnings",
@@ -1502,11 +1477,7 @@
               pointBackgroundColor: "#006600s",
               backgroundColor: gradientStroke1,
               fill: true,
-              data: [
-                2828, 1291, 3360, 3223, 1630, 980, 2059, 3092, 1831, 1842, 1902,
-                1478, 1123, 2444, 2636, 2593, 2885, 1764, 898, 1356, 2573, 3382,
-                2858, 4228,
-              ],
+              data: [],
               maxBarThickness: 6,
             },
           ],
@@ -1557,7 +1528,7 @@
               },
               ticks: {
                 callback: function (value, index, ticks) {
-                  return parseInt(value).toLocaleString() + " EUR";
+                  return parseInt(value).toLocaleString() + " Rup";
                 },
                 display: true,
                 padding: 10,
@@ -1620,26 +1591,27 @@
           let totalEarning = 0;
           x.map((y) => {
             let date = new Date(parseInt(x.endTime));
-            if (date.getMonth == new Date().getMonth) {
+            if (date.getMonth() == new Date().getMonth()) {
               totalEarning += y.price;
             }
           });
-          for (let i = 1; i <= new Date().getDay(); i++) {
-            let e = x.filter((s) => new Date(s.endTime).getDay() == i);
+          var day = new Date().getDate();
+          var month = new Date().getMonth();
+          for (let i = 1; i <= day; i++) {
+            let e = x.filter((s) => new Date(s.endTime).getDate() == i);
             if (e.length > 0) {
               earningList.push(e[0].price);
-              earningListLabel.push(
-                `${months[new Date().getMonth() - 1]} ${i}`
-              );
+              earningListLabel.push(`${months[month]} ${i}`);
             } else {
               earningList.push(0);
-              earningListLabel.push(
-                `${months[new Date().getMonth() - 1]} ${i}`
-              );
+              earningListLabel.push(`${months[month]} ${i}`);
             }
           }
-          // lineChart.data.datasets[0].push(earningList);
-          // lineChart.date.label.push(earningListLabel);
+          console.log(earningList);
+          console.log(earningListLabel);
+          lineChart.data.labels = earningListLabel;
+          lineChart.data.datasets[0].data = earningList;
+          lineChart.update();
           let rides = x.filter(
             (y) => new Date(y.endTime).getMonth() == new Date().getMonth()
           );
