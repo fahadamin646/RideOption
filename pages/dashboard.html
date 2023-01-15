@@ -1585,22 +1585,28 @@
         user = JSON.parse(user);
         document.getElementById("profile-img").src = user.profilePicture;
         document.getElementById("userName").innerHTML = user.name;
-        fetchData("earning").then((x) => {
+        fetchData("earning").then((earnings) => {
           let earningList = [];
           let earningListLabel = [];
           let totalEarning = 0;
-          x.forEach((y) => {
-            let date = new Date(y.endTime);
+          earnings.forEach((earning) => {
+            let date = new Date(earning.endTime);
             if (date.getMonth() == new Date().getMonth()) {
-              totalEarning += y.price;
+              totalEarning += earning.price;
             }
           });
           var day = new Date().getDate();
           var month = new Date().getMonth();
           for (let i = 1; i <= day; i++) {
-            let e = x.filter((s) => new Date(s.endTime).getDate() == i);
-            if (e.length > 0) {
-              earningList.push(e[0].price);
+            let earning = earnings.filter(
+              (s) => new Date(s.endTime).getDate() == i
+            );
+            if (earning.length > 0) {
+              let price = 0;
+              earning.forEach((e) => {
+                price += e.price;
+              });
+              earningList.push(price);
               earningListLabel.push(`${months[month]} ${i}`);
             } else {
               earningList.push(0);
@@ -1612,7 +1618,7 @@
           lineChart.data.labels = earningListLabel;
           lineChart.data.datasets[0].data = earningList;
           lineChart.update();
-          let rides = x.filter(
+          let rides = earnings.filter(
             (y) => new Date(y.endTime).getMonth() == new Date().getMonth()
           );
           let avgRides =
@@ -1620,7 +1626,7 @@
           document.getElementById(
             "totalEarning"
           ).innerHTML = `Rs ${totalEarning}`;
-          document.getElementById("totalRides").innerHTML = x.length;
+          document.getElementById("totalRides").innerHTML = earnings.length;
           document.getElementById("avgRides").innerHTML = avgRides.toFixed(2);
           document.getElementById("previousAmt").innerHTML = "from Rs 0";
           document.getElementById("increasePercent").append("0%");
