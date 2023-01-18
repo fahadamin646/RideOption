@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if(isset($_SESSION["user"])){
+    header("Location: dashboard.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,6 +42,7 @@
       rel="stylesheet"
     />
     <link href="../assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- <script src="Backend/Account.js"></script> -->
   </head>
 
   <body class="">
@@ -91,6 +98,12 @@
                           aria-describedby="password-addon"
                         />
                       </div>
+                      <div
+                        class="alert alert-danger alert-dismissible hide"
+                        id="unauth-alert"
+                      >
+                        Username or Paswsword is in-correct.
+                      </div>
                       <div class="text-center">
                         <button
                           type="button"
@@ -121,18 +134,19 @@
         </div>
       </section>
     </main>
-    <!-- <script src="../assets/js/jQuery.js"></script> -->
-    <script
+    <script src="../assets/js/jQuery.min.js"></script>
+    <!-- <script
       src="https://code.jquery.com/jquery-3.6.3.min.js"
       integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script>
+      $("#unauth-alert").hide();
       var win = navigator.platform.indexOf("Win") > -1;
       if (win && document.querySelector("#sidenav-scrollbar")) {
         var options = {
